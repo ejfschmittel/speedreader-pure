@@ -1,0 +1,231 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%; /* 1rem = 10px */
+}
+
+body {
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+main{
+    min-height: 100vh;
+    width: 100%;
+}
+
+.heading__primary{
+    position: absolute;
+    left: 50%;
+    top: 5rem;
+    transform: translateX(-50%);
+    color: #fff;
+    letter-spacing: .2rem;
+    font-size: 5rem;
+    text-align: center;
+
+    
+}
+
+
+.scene {
+    perspective: 160rem;
+    position: relative;
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;     
+}
+  
+.cube {
+    transform-style: preserve-3d;
+    position: relative;
+    width: 100rem;
+    height: 50rem;
+    transform: rotateY(0deg);
+    transition: all 1s;
+    transform-origin: center center;
+
+}
+  
+.cube__side { 
+    position: absolute;
+    width: 100rem;
+    height: 50rem;
+    background-color: #333;
+    opacity: 1;
+
+    border: 1px solid rgba(#aaa, 0.8);
+
+
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.05), 0 1.5rem 4rem rgba(0,0,0,.2);
+   
+}
+  
+.cube__right {
+    transform: scale3d(.7, .7, .7) translateX(50rem) rotateY(90deg) ;
+    background-color: #fff; 
+}
+
+  
+.cube__left {
+    transform: scale3d(.7, .7, .7) translateZ(50rem);
+    background-color: #fff;
+    backface-visibility: hidden;
+}
+
+.cube__flip{
+    transform: rotateY(-90deg)
+}
+
+.insert-text{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+
+    perspective: 2000px;
+}
+
+.heading-two{
+    font-size: 2.6rem;
+    font-weight: 100;
+    text-align: center;
+    letter-spacing: .2rem;
+}
+
+.textarea{
+    min-height: 10rem;
+    flex: 1 1 0;
+    resize: none;
+    margin: 2rem 0;
+    font-size: 2rem;
+    line-height: 2.4rem;
+    font: Arial;
+    padding: 2rem;
+    outline: none;
+}
+
+.textarea:focus{
+    background: #eee;
+}
+
+.reader{
+    background: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.reader__centerer{
+    height: 1.6rem;
+    width: 2px;
+    background: #333  
+}
+
+.reader__word-display{
+    position: relative;
+    padding: .5rem 0;
+    font-size: 3rem;
+    line-height: 3.2rem;
+    letter-spacing: .1rem;
+}
+
+.back-btn{
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+}
+
+.options__toggle-input{
+    display: none;
+}
+
+.options__toggle-label{
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 11;
+}
+
+.options__options{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color:rgba(30,30,30, .8);
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    visibility: hidden;
+    opacity: 0;
+    transition: .2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.options__toggle-input:checked ~ .options__options{
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.reader-controls{
+    position: absolute;
+    left: 50%;
+    bottom: 5rem;
+    transform: translateX(-50%);
+}
+
+.play-btn {
+    box-sizing: border-box;
+    height: 3rem;
+
+    border-color: transparent transparent transparent #202020;
+    transition: 100ms all ease;
+    will-change: border-width;
+    cursor: pointer;
+
+    border-style: solid;
+    border-width: 1.5rem 0 1.5rem 2.5rem;
+}
+
+.pause-btn {
+    border-style: double;
+    border-width: 0px 0 0px 2rem;
+}
+
+
+.button{
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    border: 1px solid #333;
+    color: #fefefe;
+    font-size: 1.6rem;
+    line-height: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 .2rem .4rem rgba(0,0,0,.2), 0 .4rem 1rem rgba(0,0,0,.1);
+    outline: none;
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+}
+
+.button:hover{
+    transform: translateZ(-.5rem);
+}
+
+.button:active{
+    transform: translateZ(-1.0rem);
+}
