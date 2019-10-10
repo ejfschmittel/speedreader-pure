@@ -27,21 +27,29 @@
                             <button id="switch-to-input-btn" class="button back-btn">
                                 back
                             </button>
+  
+                            <button class="button options-button" id="options-button">
+                                options
+                            </button>
 
-                            
-                            <input type="checkbox" id="options-toggle" class="options__toggle-input"/>
-                            <label class="options__toggle-label button" for="options-toggle">options</label>
-                            <div class="options__options">
+                            <div class="options__options" id="options-window">
                                 <h3>Settings</h3>
-                                <input type="number" min=0 />
 
-                                <select>
-                                    <option>pure Wpm</option>
-                                    <option>Balanced</option>
-                                    <option>custom</option>
-                                </select>
+                                <div>                                    
+                                    <!-- <label for="reader-wpm">WPM:</label> -->               
+                                    <input class="input" name="reader-wpm" id="wpm-input" type="number" min=0 placeholder="WPM"/>
+                                </div>
 
-                                <button>Apply</button>
+                                <!--<div>
+                                    <label for="reader-mode">Mode:</label>
+                                    <select name="reader-mode" class="input">
+                                        <option>pure Wpm</option>
+                                        <option>Balanced</option>
+                                        <option>custom</option>
+                                    </select>
+                                </div>-->
+                                
+                                <button class="button" id="apply-settings-button">Apply</button>
                             </div>
                             
 

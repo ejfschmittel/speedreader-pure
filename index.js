@@ -1,5 +1,38 @@
 
 
+/*
+    make options button js variable toggle
+        -stop reading on click
+        - set settings
+    
+    organize options 
+
+    add navigation to player menu
+
+    organize state of the app
+        cube position
+        player playing
+        settings
+    comment
+*/
+
+const MODE = {
+    PURE_WPM: 'PURE_WPM', // mode using 3600 / wpm to figure out how long to show each word
+    BALANCED: 'BALANCED', // mode using 3600 / wpm + balancing based on word length, position and sentence length
+    CUSTOM: 'CUSTOM' // custom define balancing 
+}
+
+const defaultSettings = {
+    wpm: 300,
+    mode: MODE.PURE_WPM,
+}
+
+let cubeFlipped = false;
+let optionsToggled = false;
+
+
+
+
 function init(){
     const buttonRead = document.querySelector("#switch-to-reader-btn");
     const buttonWrite = document.querySelector("#switch-to-input-btn");
@@ -8,7 +41,15 @@ function init(){
     const textInput = document.querySelector("#reader-text-input");
     const wordOutput = document.querySelector("#reader-text-output")
 
+    const optionsButton = document.querySelector("#options-button")
+    const optionsWindow = document.querySelector("#options-window")
+
     const pauseUnpauseButton = document.querySelector("#pause-unpause-button");
+
+
+    const wpmInput = document.querySelector("#wpm-input")
+    wpmInput.value = defaultSettings.wpm;
+    const applySettingsButton = document.querySelector("#apply-settings-button")
 
     const reader = new Reader({
         outputFunc: (word) => wordOutput.innerHTML = word,
@@ -29,6 +70,21 @@ function init(){
             }          
         }        
     });
+
+    optionsButton.addEventListener("click", () => {
+        // set to inverse boolean
+        optionsToggled = !optionsToggled
+        // update button content & trigger options panel
+        if(optionsToggled){
+            optionsButton.innerHTML = "close"
+            optionsWindow.classList.add("options__options--show")
+        }else{
+            optionsButton.innerHTML = "options"
+            optionsWindow.classList.remove("options__options--show")
+        }
+        
+
+    })
 
     buttonRead.addEventListener("click", () => {
         // prep text
@@ -51,42 +107,23 @@ function init(){
         reader.pauseRead();
         cube.classList.remove("cube__flip");
     });
+
+    applySettingsButton.addEventListener("click", () => {
+        const wpmValue = wpmInput.value
+        reader.updateSettings({wpm: wpmValue})
+
+        // close options window
+        optionsToggled = false;
+        optionsButton.innerHTML = "options"
+        optionsWindow.classList.remove("options__options--show")
+    })
 }
 
 
-// https://autoprefixer.github.io/ http://pleeease.io/play/
-// 
-/* 
-    TODO 
-    * reader and reader options in seperate class   x
-        - move out reader to seperated file
-        - add reader options 
-        - more reader controls => to start, jump sentence start, jump next sentece, 
-        - wpm
-        - settings 
-    * fix blurriness                                x
-    * add header
-    * add rest of the page
-    * clean and comment js / css
-    * test cross browser
-
-*/
-
-
-/* 
-    pause when comma
-
-*/
-
 class Reader{
     constructor(settings){
-        this.settings = Object.assign({
-                wpm: 300
-            },
-            settings)
+        this.settings = Object.assign(defaultSettings, settings)
         
-        console.log(this.settings)
-
         // init values 
         this.text = "";       
         this.textLength = 0;
@@ -100,6 +137,11 @@ class Reader{
         
         this.reading = false;
         this.atEnd = false;
+    }
+
+    updateSettings(newSettings){
+        this.settings = Object.assign(this.settings, newSettings)
+        console.log(this.settings)
     }
 
     getCurrentWord(){
@@ -148,6 +190,7 @@ class Reader{
         // special (commas and shit)
         // word & sentece weight wpm (with adjusters)
         // pure wpm
+        console.log(this.settings.wpm)
         return 60 * 1000 / this.settings.wpm;
     }
 
