@@ -1,21 +1,4 @@
 
-
-/*
-    make options button js variable toggle
-        -stop reading on click
-        - set settings
-    
-    organize options 
-
-    add navigation to player menu
-
-    organize state of the app
-        cube position
-        player playing
-        settings
-    comment
-*/
-
 const MODE = {
     PURE_WPM: 'PURE_WPM', // mode using 3600 / wpm to figure out how long to show each word
     BALANCED: 'BALANCED', // mode using 3600 / wpm + balancing based on word length, position and sentence length
@@ -53,7 +36,8 @@ function init(){
 
     const reader = new Reader({
         outputFunc: (word) => wordOutput.innerHTML = word,
-        onPauseFunc: () => pauseUnpauseButton.classList.remove("pause-btn")
+        onPauseRead: () => pauseUnpauseButton.classList.remove("pause-btn"),
+        onStartRead: () => pauseUnpauseButton.classList.add("pause-btn"),
     });
     
 
@@ -61,12 +45,12 @@ function init(){
         if(reader.isReading()){
             console.log("pause read")
             reader.pauseRead();
-            pauseUnpauseButton.classList.remove("pause-btn")
+            
         }else{
             console.log("start read")
             if(!reader.isAtEnd()){
                 reader.startRead()
-                pauseUnpauseButton.classList.add("pause-btn")
+                
             }          
         }        
     });
@@ -149,16 +133,19 @@ class Reader{
     }
 
     startRead(){
+        console.log("start read");     
         this.reading = true;
+        if(this.settings.onStartRead){
+            this.settings.onStartRead()
+        }
         this.read();
     }
 
     pauseRead(){
         console.log("pause read");
         this.reading = false;
-
-        if(this.settings.onPauseFunc){
-            this.settings.onPauseFunc();
+        if(this.settings.onPauseRead){
+            this.settings.onPauseRead()
         }
     }
 
@@ -190,7 +177,6 @@ class Reader{
         // special (commas and shit)
         // word & sentece weight wpm (with adjusters)
         // pure wpm
-        console.log(this.settings.wpm)
         return 60 * 1000 / this.settings.wpm;
     }
 

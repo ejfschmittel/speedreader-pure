@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="main.prefixed.css">
     <title>SpeedCube - SpeedReader</title>
 </head>
 <body>
@@ -35,20 +35,11 @@
                             <div class="options__options" id="options-window">
                                 <h3>Settings</h3>
 
-                                <div>                                    
-                                    <!-- <label for="reader-wpm">WPM:</label> -->               
+                                <div class="input-group">                                    
+                                    <label for="reader-wpm">WPM:</label>           
                                     <input class="input" name="reader-wpm" id="wpm-input" type="number" min=0 placeholder="WPM"/>
                                 </div>
 
-                                <!--<div>
-                                    <label for="reader-mode">Mode:</label>
-                                    <select name="reader-mode" class="input">
-                                        <option>pure Wpm</option>
-                                        <option>Balanced</option>
-                                        <option>custom</option>
-                                    </select>
-                                </div>-->
-                                
                                 <button class="button" id="apply-settings-button">Apply</button>
                             </div>
                             
