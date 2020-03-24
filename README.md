@@ -6,6 +6,11 @@ A live version of the application can be found here:
 https://ejfschmittel.github.io/speedreader-pure/
 
 
-### Todo
-* add controlls (jump to start, jump back sentence, jump forward etc.)
-* add dynamic reading (time for word on screen is calculated on wordlength, sentencelength etc. )
+### Installation 
+
+```
+# Clone this repository
+git clone https://github.com/ejfschmittel/sortingalg.git
+
+Then open index.html in a browser of choice
+```
